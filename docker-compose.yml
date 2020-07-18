@@ -1,0 +1,17 @@
+version: "3"
+services:
+  reservationsdb:
+    container_name: reservationsdb
+    build: ./db/
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRESQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - my-db:/var/lib/postgresql/data
+volumes:
+  my-db:
