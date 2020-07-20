@@ -16,3 +16,8 @@ INSERT INTO dates (date) VALUES ('07-28-2020');
 INSERT INTO dates (date) VALUES ('07-29-2020');
 INSERT INTO dates (date) VALUES ('07-30-2020');
 INSERT INTO dates (date) VALUES ('07-31-2020');
+
+INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Main Hall', 12, TRUE, FALSE);
+INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Bar', 4, FALSE, FALSE);
+INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Riverside', 8, TRUE, FALSE);
+INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Riverise (smoking allowed)', 6, FALSE, TRUE);
