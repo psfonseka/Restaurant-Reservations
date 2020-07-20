@@ -26,7 +26,8 @@ CREATE TABLE reservations (
   region_id INT NOT NULL,
   reservation_time TIME NOT NULL,
   reservation_date DATE NOT NULL,
-  CONSTRAINT fk_reservation_region FOREIGN KEY (region_id) REFERENCES regions(id)
+  CONSTRAINT fk_reservation_region FOREIGN KEY (region_id) REFERENCES regions(id),
+  UNIQUE (region_id, reservation_time, reservation_date)
 );
 
 CREATE TABLE confirmations (
