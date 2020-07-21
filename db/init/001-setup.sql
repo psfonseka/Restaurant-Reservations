@@ -27,6 +27,8 @@ CREATE TABLE reservations (
   reservation_time TIME NOT NULL,
   reservation_date DATE NOT NULL,
   CONSTRAINT fk_reservation_region FOREIGN KEY (region_id) REFERENCES regions(id),
+  CONSTRAINT fk_reservation_time FOREIGN KEY (reservation_time) REFERENCES timeslots(timeslot),
+  CONSTRAINT fk_reservation_date FOREIGN KEY (reservation_date) REFERENCES dates(date),
   UNIQUE (region_id, reservation_time, reservation_date)
 );
 
