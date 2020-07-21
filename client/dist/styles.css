@@ -15,5 +15,14 @@ h1 {
   width: 40%;
 }
 
+.guestInfo {
+  margin: auto;
+  width: 40%
+}
+
 .paragraph {
+}
+
+.text-danger {
+  color: red;
 }
