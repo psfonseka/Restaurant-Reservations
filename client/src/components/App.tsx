@@ -3,6 +3,7 @@ import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import { SearchEntry } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
+import matchRegions from '../helpers/matchRegions';
 
 interface Props {
 
@@ -22,6 +23,7 @@ class App extends React.Component<Props, State> {
 
   handleSubmit(search: SearchEntry) {
     console.log(search);
+    matchRegions(search.partySize, search.hasSmoker, search.hasChildren);
   }
 
   render() {

@@ -7,3 +7,9 @@ db.any('select timeslots.time_string, sub.date from timeslots right join (select
   .catch((err) => {
     console.log(err);
   });
+
+module.exports = {
+  matchRegions: (req, res) => {
+    res.send("hello");
+  }
+};

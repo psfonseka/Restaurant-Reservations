@@ -19,7 +19,7 @@ class GuestInfo extends React.Component<Props, State> {
         fullName: "",
         email: "",
         phoneNumber: "",
-        partySize: 0,
+        partySize: 1,
         hasBirthday: false,
         hasSmoker: false,
         hasChildren: false,
@@ -92,7 +92,7 @@ class GuestInfo extends React.Component<Props, State> {
               value={this.state.searchEntry.partySize}
               onChange={this.handleInputChange}/>
           </label>
-          {this.props.validator.message('number of guests', this.state.searchEntry.partySize, 'between:1,12,numeric', { className: 'text-danger' })}
+          {this.props.validator.message('number of guests', this.state.searchEntry.partySize, 'between:1,12,num', { className: 'text-danger' })}
           <br />
           <label>
             Will any guest be smoking?:

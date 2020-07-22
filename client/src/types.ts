@@ -1,4 +1,4 @@
-export interface SearchEntry{
+export interface SearchEntry {
   fullName: string,
   email: string,
   phoneNumber: string,
@@ -7,4 +7,12 @@ export interface SearchEntry{
   hasBirthday: boolean,
   hasChildren: boolean,
   birthdayName: string
+};
+
+export interface AxiosResponse<T = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: any;
+  config: any;
 };
