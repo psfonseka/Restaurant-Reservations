@@ -38,4 +38,13 @@ export interface DaySlots {
   [key: string]: Array<TimeSlot>
 };
 
-
+export interface State {
+  availableRegions: Array<DiningRegion>,
+  matched: boolean,
+  search: Partial<SearchEntry>
+  regionSelectedId: number,
+  regionSelectedName: string,
+  reservationSlots: DaySlots,
+  timeSelectedId: number,
+  dateSelected: string
+}

@@ -4,24 +4,13 @@ import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import RegionSelection from './RegionSelection';
 import ReservationSlots from './ReservationSlots';
-import { DiningRegion, SearchEntry, DaySlots } from '../types';
+import { DiningRegion, SearchEntry, DaySlots, State } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
 import matchRegions from '../helpers/matchRegions';
 import getSlots from '../helpers/getSlots';
 
 interface Props {
 
-}
-
-interface State {
-  availableRegions: Array<DiningRegion>,
-  matched: boolean,
-  search: Partial<SearchEntry>
-  regionSelectedId: number,
-  regionSelectedName: string,
-  reservationSlots: DaySlots,
-  timeSelectedId: number,
-  dateSelected: string
 }
 
 class App extends React.Component<Props, State> {
@@ -106,7 +95,7 @@ class App extends React.Component<Props, State> {
         <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>
         {this.state.matched && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
         {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots} handleSelectSlot={this.handleSelectSlot}/>}
-        {this.state.timeSelectedId > 0 && <ConfirmationPage/>}
+        {this.state.timeSelectedId > 0 && <ConfirmationPage appState={this.state}/>}
       </div>
     );
   }
