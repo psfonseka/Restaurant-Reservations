@@ -77,7 +77,7 @@ class App extends React.Component<Props, State> {
 
   handleSelectSlot(date: string, timeId: number) {
     let newReservationSlots = Object.assign({}, this.state.reservationSlots);
-    if (this.state.timeSelectedId > 0) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId].selected = false;
+    if (this.state.timeSelectedId > -1) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId].selected = false;
     newReservationSlots[date][timeId].selected = true;
     const info = Object.assign({}, this.state.info, {
       reservationDate: date,
