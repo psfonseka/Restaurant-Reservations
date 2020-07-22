@@ -23,6 +23,7 @@ class GuestInfo extends React.Component<Props, State> {
         hasBirthday: false,
         hasSmoker: false,
         hasChildren: false,
+        childrenNumber: 0,
         birthdayName: ""
       }
     };
@@ -95,15 +96,6 @@ class GuestInfo extends React.Component<Props, State> {
           {this.props.validator.message('number of guests', this.state.searchEntry.partySize, 'between:1,12,num', { className: 'text-danger' })}
           <br />
           <label>
-            Will any guest be smoking?:
-            <input
-              name="hasSmoker"
-              type="checkbox"
-              checked={this.state.searchEntry.hasSmoker}
-              onChange={this.handleInputChange}/>
-          </label>
-          <br />
-          <label>
             Will there be any children?:
             <input
               name="hasChildren"
@@ -112,6 +104,17 @@ class GuestInfo extends React.Component<Props, State> {
               onChange={this.handleInputChange}/>
           </label>
           <br />
+          {(this.state.searchEntry.hasChildren && 
+          <label>
+            Number of children:
+            <input
+              name="childrenNumber"
+              type="number"
+              value={this.state.searchEntry.childrenNumber}
+              onChange={this.handleInputChange}/>
+          </label>
+          )}
+          <br/>
           <label>
             Is it a birthday celebration?:
             <input
@@ -131,6 +134,15 @@ class GuestInfo extends React.Component<Props, State> {
               onChange={this.handleInputChange}/>
           </label>
           )}
+          <br/>
+          <label>
+            Will any guest be smoking?:
+            <input
+              name="hasSmoker"
+              type="checkbox"
+              checked={this.state.searchEntry.hasSmoker}
+              onChange={this.handleInputChange}/>
+          </label>
           <br/>
           <input type="submit" value="SEARCH" />
         </form>

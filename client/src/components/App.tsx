@@ -4,13 +4,25 @@ import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import RegionSelection from './RegionSelection';
 import ReservationSlots from './ReservationSlots';
-import { DiningRegion, SearchEntry, DaySlots, State } from '../types';
+import { DiningRegion, SearchEntry, DaySlots, FullInfo } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
 import matchRegions from '../helpers/matchRegions';
 import getSlots from '../helpers/getSlots';
 
 interface Props {
 
+}
+
+interface State {
+  availableRegions: Array<DiningRegion>,
+  matched: boolean,
+  search: Partial<SearchEntry>
+  regionSelectedId: number,
+  regionSelectedName: string,
+  reservationSlots: DaySlots,
+  timeSelectedId: number,
+  dateSelected: string,
+  info: Partial<FullInfo>
 }
 
 class App extends React.Component<Props, State> {
@@ -24,7 +36,8 @@ class App extends React.Component<Props, State> {
       regionSelectedName: "",
       reservationSlots: {},
       timeSelectedId: 0,
-      dateSelected: ""
+      dateSelected: "",
+      info: {}
     };
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -36,7 +49,6 @@ class App extends React.Component<Props, State> {
     console.log(search);
     matchRegions(search.partySize, search.hasSmoker, search.hasChildren)
       .then((data: Array<DiningRegion>) => {
-        console.log(data, data.length);
         this.setState({
           availableRegions: data,
           matched: true,
@@ -44,7 +56,10 @@ class App extends React.Component<Props, State> {
           regionSelectedId: data.length > 0 ? data[0].id : 0,
           regionSelectedName: data.length > 0 ? data[0].region_name : "",
           timeSelectedId: 0,
-          dateSelected: ""
+          dateSelected: "",
+          info: {
+            guestInfo: search
+          }
         }, () => {
           if (this.state.regionSelectedId > 0) this.updateSlots(this.state.regionSelectedId, this.state.regionSelectedName);
         });
@@ -64,22 +79,34 @@ class App extends React.Component<Props, State> {
     let newReservationSlots = Object.assign({}, this.state.reservationSlots);
     if (this.state.timeSelectedId > 0) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId-1].selected = false;
     newReservationSlots[date][timeId-1].selected = true;
+    const info = Object.assign({}, this.state.info, {
+      reservationDate: date,
+      reservationTime: this.state.reservationSlots[date][timeId].time
+    });
     this.setState({
       reservationSlots: newReservationSlots,
       dateSelected: date,
       timeSelectedId: timeId,
+      info
     });
   }
 
   updateSlots(region_id: number, region_name: string) {
     getSlots(region_id)
       .then((data: DaySlots) => {
+        const info = Object.assign({}, this.state.info, {
+          regionInfo: {
+            region_name,
+            id: region_id
+          }
+        })
         this.setState({
           reservationSlots: data,
           regionSelectedId: region_id,
           regionSelectedName: region_name,
           timeSelectedId: 0,
-          dateSelected: ""
+          dateSelected: "",
+          info
         });
       })
       .catch((err: any) => {
@@ -95,7 +122,7 @@ class App extends React.Component<Props, State> {
         <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>
         {this.state.matched && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
         {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots} handleSelectSlot={this.handleSelectSlot}/>}
-        {this.state.timeSelectedId > 0 && <ConfirmationPage appState={this.state}/>}
+        {this.state.timeSelectedId > 0 && <ConfirmationPage info={this.state.info}/>}
       </div>
     );
   }

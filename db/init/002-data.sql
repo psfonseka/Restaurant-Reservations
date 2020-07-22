@@ -27,8 +27,8 @@ INSERT INTO reservations (region_id, reservation_time, reservation_date) VALUES 
 INSERT INTO reservations (region_id, reservation_time, reservation_date) VALUES (1, '9:30 PM', '07-30-2020');
 INSERT INTO reservations (region_id, reservation_time, reservation_date) VALUES (3, '9:30 PM', '07-28-2020');
 
-INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday, birthday_name) VALUES (1, 'Alex Turner', 'ArcticMonkeys@gmail.com', '824-281-0193', 4, TRUE, 'Matt Helders');
-INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday) VALUES (2, 'Kurt Cobain', 'Nirvana@hotmail.com', '192-759-0028', 3, FALSE);
-INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday, birthday_name) VALUES (3, 'Bob Dylan', 'BobDylan@gmail.com', '802-477-9183', 7, TRUE, 'Jimi Hendrix');
-INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday) VALUES (4, 'Julian Casablancas', 'Strokes@gmail.com', '676-198-3471', 6, FALSE);
+INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday, birthday_name, children, number_of_children, smoking) VALUES (1, 'Alex Turner', 'ArcticMonkeys@gmail.com', '824-281-0193', 10, TRUE, 'Matt Helders', TRUE, 3, FALSE);
+INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday, children, smoking) VALUES (2, 'Kurt Cobain', 'Nirvana@hotmail.com', '192-759-0028', 3, FALSE, FALSE, FALSE);
+INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday, birthday_name, children, smoking) VALUES (3, 'Bob Dylan', 'BobDylan@gmail.com', '802-477-9183', 7, TRUE, 'Jimi Hendrix', FALSE, FALSE);
+INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, birthday, children, smoking) VALUES (4, 'Julian Casablancas', 'Strokes@gmail.com', '676-198-3471', 6, FALSE, FALSE, TRUE);
 

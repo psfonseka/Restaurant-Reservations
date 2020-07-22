@@ -19,6 +19,7 @@ export interface SearchEntry {
   hasSmoker: boolean,
   hasBirthday: boolean,
   hasChildren: boolean,
+  childrenNumber: number,
   birthdayName: string
 };
 
@@ -38,13 +39,9 @@ export interface DaySlots {
   [key: string]: Array<TimeSlot>
 };
 
-export interface State {
-  availableRegions: Array<DiningRegion>,
-  matched: boolean,
-  search: Partial<SearchEntry>
-  regionSelectedId: number,
-  regionSelectedName: string,
-  reservationSlots: DaySlots,
-  timeSelectedId: number,
-  dateSelected: string
+export interface FullInfo {
+  guestInfo: SearchEntry,
+  regionInfo: DiningRegion,
+  reservationDate: string,
+  reservationTime: string
 }

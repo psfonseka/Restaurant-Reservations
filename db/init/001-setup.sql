@@ -41,5 +41,8 @@ CREATE TABLE confirmations (
   party_size INT NOT NULL,
   birthday BOOLEAN NOT NULL,
   birthday_name TEXT,
+  children BOOLEAN NOT NULL,
+  number_of_children INT,
+  smoking BOOLEAN NOT NULL,
   CONSTRAINT fk_confirmation_reservation FOREIGN KEY (reservation_id) REFERENCES reservations(id)
 );

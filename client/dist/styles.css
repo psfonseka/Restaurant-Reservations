@@ -10,6 +10,11 @@ h2 {
   width: 100%;
 }
 
+.confirmationPage {
+  margin: auto;
+  width: 40%;
+}
+
 .dates {
   display: flex;
   flex-direction: row;
