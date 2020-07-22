@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ConfirmationPage from './ConfirmationPage';
 import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import RegionSelection from './RegionSelection';
@@ -46,12 +47,15 @@ class App extends React.Component<Props, State> {
     console.log(search);
     matchRegions(search.partySize, search.hasSmoker, search.hasChildren)
       .then((data: Array<DiningRegion>) => {
+        console.log(data, data.length);
         this.setState({
           availableRegions: data,
           matched: true,
           search,
-          regionSelectedId: data[0].id || 0,
-          regionSelectedName: data[0].region_name || ""
+          regionSelectedId: data.length > 0 ? data[0].id : 0,
+          regionSelectedName: data.length > 0 ? data[0].region_name : "",
+          timeSelectedId: 0,
+          dateSelected: ""
         }, () => {
           if (this.state.regionSelectedId > 0) this.updateSlots(this.state.regionSelectedId, this.state.regionSelectedName);
         });
@@ -68,7 +72,6 @@ class App extends React.Component<Props, State> {
   }
 
   handleSelectSlot(date: string, timeId: number) {
-    console.log(date, timeId);
     let newReservationSlots = Object.assign({}, this.state.reservationSlots);
     if (this.state.timeSelectedId > 0) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId-1].selected = false;
     newReservationSlots[date][timeId-1].selected = true;
@@ -85,7 +88,9 @@ class App extends React.Component<Props, State> {
         this.setState({
           reservationSlots: data,
           regionSelectedId: region_id,
-          regionSelectedName: region_name
+          regionSelectedName: region_name,
+          timeSelectedId: 0,
+          dateSelected: ""
         });
       })
       .catch((err: any) => {
@@ -101,6 +106,7 @@ class App extends React.Component<Props, State> {
         <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>
         {this.state.matched && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
         {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots} handleSelectSlot={this.handleSelectSlot}/>}
+        {this.state.timeSelectedId > 0 && <ConfirmationPage/>}
       </div>
     );
   }
