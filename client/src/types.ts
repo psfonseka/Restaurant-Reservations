@@ -22,4 +22,19 @@ export interface SearchEntry {
   birthdayName: string
 };
 
+export interface TimeDaySlot {
+  time_string: string,
+  date: string,
+  taken: boolean
+};
+
+export interface TimeSlot {
+  time: string
+  taken: boolean
+};
+
+export interface DaySlots {
+  [key: string]: Array<TimeSlot>
+};
+
 

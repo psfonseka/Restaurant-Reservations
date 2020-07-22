@@ -2,7 +2,7 @@ import * as React from 'react';
 import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import RegionSelection from './RegionSelection';
-import { DiningRegion, SearchEntry } from '../types';
+import { DiningRegion, SearchEntry, DaySlots } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
 import matchRegions from '../helpers/matchRegions';
 import getSlots from '../helpers/getSlots';
@@ -15,7 +15,8 @@ interface State {
   availableRegions: Array<DiningRegion>,
   matched: boolean,
   search: Partial<SearchEntry>
-  regionSelected: number
+  regionSelected: number,
+  reservationSlots: DaySlots
 }
 
 class App extends React.Component<Props, State> {
@@ -25,7 +26,8 @@ class App extends React.Component<Props, State> {
       availableRegions: [],
       matched: false, 
       search: {},
-      regionSelected: 0
+      regionSelected: 0,
+      reservationSlots: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +41,22 @@ class App extends React.Component<Props, State> {
         this.setState({
           availableRegions: data,
           matched: true,
-          search
+          search,
+          regionSelected: data[0].id || 0
+        }, () => {
+          if (this.state.regionSelected > 0) this.updateSlots(this.state.regionSelected);
+        });
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }
+
+  updateSlots(region_id: number) {
+    getSlots(region_id)
+      .then((data: DaySlots) => {
+        this.setState({
+          reservationSlots: data
         });
       })
       .catch((err: any) => {
@@ -49,14 +66,7 @@ class App extends React.Component<Props, State> {
 
   handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const region_id = parseInt(event.target.value);
-    getSlots(region_id)
-      .then((data: any) => {
-        console.log(data);
-        console.log("here");
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });
+    this.updateSlots(region_id);
   }
 
   render() {
