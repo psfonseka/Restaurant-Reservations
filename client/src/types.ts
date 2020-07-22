@@ -5,5 +5,6 @@ export interface SearchEntry{
   partySize: number,
   hasSmoker: boolean,
   hasBirthday: boolean,
+  hasChildren: boolean,
   birthdayName: string
 };

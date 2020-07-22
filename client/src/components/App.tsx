@@ -4,7 +4,6 @@ import GuestInfo from './GuestInfo';
 import { SearchEntry } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
 
-
 interface Props {
 
 }

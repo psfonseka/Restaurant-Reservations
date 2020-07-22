@@ -22,6 +22,7 @@ class GuestInfo extends React.Component<Props, State> {
         partySize: 0,
         hasBirthday: false,
         hasSmoker: false,
+        hasChildren: false,
         birthdayName: ""
       }
     };
@@ -99,6 +100,15 @@ class GuestInfo extends React.Component<Props, State> {
               name="hasSmoker"
               type="checkbox"
               checked={this.state.searchEntry.hasSmoker}
+              onChange={this.handleInputChange}/>
+          </label>
+          <br />
+          <label>
+            Will there be any children?:
+            <input
+              name="hasChildren"
+              type="checkbox"
+              checked={this.state.searchEntry.hasChildren}
               onChange={this.handleInputChange}/>
           </label>
           <br />
