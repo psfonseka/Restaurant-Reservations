@@ -91,6 +91,7 @@ class GuestInfo extends React.Component<Props, State> {
               value={this.state.searchEntry.partySize}
               onChange={this.handleInputChange}/>
           </label>
+          {this.props.validator.message('number of guests', this.state.searchEntry.partySize, 'between:1,12,numeric', { className: 'text-danger' })}
           <br />
           <label>
             Will any guest be smoking?:
