@@ -49,6 +49,14 @@ h2 {
   background-color: green;
   padding: 10% 10% 10% 10%;
   text-align: center;
+  color: white;
+}
+
+.takenSlot {
+  background-color: grey;
+  padding: 10% 10% 10% 10%;
+  text-align: center;
+  color: white;
 }
 
 .text-danger {

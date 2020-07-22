@@ -14,13 +14,13 @@ const ReservationSlots = (props: Props) => {
       <h2>{props.regionName} Reservation Slots</h2>
       <div className="dates">
         {Object.keys(props.reservationSlots).map((date) => {
-          return <div>{date}</div>
+          return <div key={date}>{date}</div>
         })}
       </div>
       <div className="slotsContainer">
         {Object.keys(props.reservationSlots).map((date) => {
           return props.reservationSlots[date].map((slot) => {
-          return <div className="slot">{slot.time}</div>
+          return <div className={slot.taken ? "takenSlot" : "slot"} key={date + ": " + slot.time}>{slot.time}</div>
           })
         })}
       </div>
