@@ -8,10 +8,11 @@ const matchRegions = (partySize: number, smoking: boolean, children: boolean) =>
     children
   })
     .then((data: AxiosResponse) => {
-      console.log(data.data);
+      return data.data;
     })
     .catch((err: AxiosResponse) => {
       console.log(err);
+      return err;
     })
 };
 

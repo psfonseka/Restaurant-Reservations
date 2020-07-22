@@ -1,3 +1,16 @@
+export interface AxiosResponse<T = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: any;
+  config: any;
+};
+
+export interface DiningRegion {
+  id: number,
+  region_name: string
+};
+
 export interface SearchEntry {
   fullName: string,
   email: string,
@@ -9,10 +22,4 @@ export interface SearchEntry {
   birthdayName: string
 };
 
-export interface AxiosResponse<T = any> {
-  data: T;
-  status: number;
-  statusText: string;
-  headers: any;
-  config: any;
-};
+

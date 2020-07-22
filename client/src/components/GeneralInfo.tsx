@@ -1,10 +1,6 @@
 import * as React from 'react';
 
-interface Props {
-
-}
-
-const GeneralInfo: React.FunctionComponent<Props> = (props) => {
+const GeneralInfo: React.FunctionComponent = () => {
   return (
     <div className="generalInfo">
       <h1>

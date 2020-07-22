@@ -16,6 +16,11 @@ h1 {
   width: 40%
 }
 
+.regionSelection {
+  margin: auto;
+  width: 40%;
+}
+
 .text-danger {
   color: red;
 }
