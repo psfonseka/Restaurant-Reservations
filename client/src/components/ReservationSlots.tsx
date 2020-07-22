@@ -4,11 +4,11 @@ import { DaySlots } from '../types';
 interface Props {
   regionId: number,
   regionName: string,
-  reservationSlots: DaySlots
+  reservationSlots: DaySlots,
+  handleSelectSlot: (date: string, timeId: number) => void;
 }
 
 const ReservationSlots = (props: Props) => {
-  console.log(Object.keys(props.reservationSlots));
   return (
     <div className="reservationSlots">
       <h2>{props.regionName} Reservation Slots</h2>
@@ -19,8 +19,11 @@ const ReservationSlots = (props: Props) => {
       </div>
       <div className="slotsContainer">
         {Object.keys(props.reservationSlots).map((date) => {
-          return props.reservationSlots[date].map((slot) => {
-          return <div className={slot.taken ? "takenSlot" : "slot"} key={date + ": " + slot.time}>{slot.time}</div>
+          return props.reservationSlots[date].map((slot, timeId) => {
+          let cName = "slot";
+          if (slot.taken) cName = "takenSlot";
+          if (slot.selected) cName = "selectedSlot";
+          return <div onClick={(e) => {if (!slot.taken) props.handleSelectSlot(date, timeId + 1)}} className={cName} key={date + ": " + slot.time}>{slot.time}</div>
           })
         })}
       </div>

@@ -18,7 +18,9 @@ interface State {
   search: Partial<SearchEntry>
   regionSelectedId: number,
   regionSelectedName: string,
-  reservationSlots: DaySlots
+  reservationSlots: DaySlots,
+  timeSelectedId: number,
+  dateSelected: string
 }
 
 class App extends React.Component<Props, State> {
@@ -30,11 +32,14 @@ class App extends React.Component<Props, State> {
       search: {},
       regionSelectedId: 0,
       regionSelectedName: "",
-      reservationSlots: {}
+      reservationSlots: {},
+      timeSelectedId: 0,
+      dateSelected: ""
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleSelectSlot = this.handleSelectSlot.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(search: SearchEntry) {
@@ -56,6 +61,24 @@ class App extends React.Component<Props, State> {
       });
   }
 
+  handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const region_id = parseInt(event.target.value);
+    const region_name = event.target.options[event.target.options.selectedIndex].text;
+    this.updateSlots(region_id, region_name);
+  }
+
+  handleSelectSlot(date: string, timeId: number) {
+    console.log(date, timeId);
+    let newReservationSlots = Object.assign({}, this.state.reservationSlots);
+    if (this.state.timeSelectedId > 0) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId-1].selected = false;
+    newReservationSlots[date][timeId-1].selected = true;
+    this.setState({
+      reservationSlots: newReservationSlots,
+      dateSelected: date,
+      timeSelectedId: timeId,
+    });
+  }
+
   updateSlots(region_id: number, region_name: string) {
     getSlots(region_id)
       .then((data: DaySlots) => {
@@ -70,12 +93,6 @@ class App extends React.Component<Props, State> {
       });
   }
 
-  handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const region_id = parseInt(event.target.value);
-    const region_name = event.target.options[event.target.options.selectedIndex].text;
-    this.updateSlots(region_id, region_name);
-  }
-
   render() {
     console.log(this.state);
     return (
@@ -83,7 +100,7 @@ class App extends React.Component<Props, State> {
         <GeneralInfo/>
         <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>
         {this.state.matched && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
-        {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots}/>}
+        {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots} handleSelectSlot={this.handleSelectSlot}/>}
       </div>
     );
   }

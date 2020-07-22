@@ -37,6 +37,13 @@ h2 {
   width: 70%;
 }
 
+.selectedSlot {
+  background-color: blue;
+  padding: 10% 10% 10% 10%;
+  text-align: center;
+  color: white;
+}
+
 .slotsContainer {
   display: grid;
   grid-template-columns: minmax(auto, auto);

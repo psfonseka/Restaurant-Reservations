@@ -29,8 +29,9 @@ export interface TimeDaySlot {
 };
 
 export interface TimeSlot {
-  time: string
-  taken: boolean
+  time: string,
+  taken: boolean,
+  selected: boolean
 };
 
 export interface DaySlots {

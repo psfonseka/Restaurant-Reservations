@@ -11,7 +11,7 @@ const getSlots = (region_id: number) => {
         const time = slot.time_string;
         const taken = slot.taken;
         if (!processedData[date]) processedData[date] = [];
-        processedData[date].push({time: time, taken: taken});
+        processedData[date].push({time: time, taken: taken, selected: false});
       });
       return processedData;
     })
