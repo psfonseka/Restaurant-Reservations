@@ -83,7 +83,7 @@ class App extends React.Component<Props, State> {
         <GeneralInfo/>
         <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>
         {this.state.matched && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
-        {this.state.regionSelectedId > 0 && <ReservationSlots/>}
+        {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots}/>}
       </div>
     );
   }

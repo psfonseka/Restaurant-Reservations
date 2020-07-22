@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { DiningRegion } from '../types';
 
-const RegionSelection = (props: {availableRegions: Array<DiningRegion>, handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void}) => {
+interface Props {
+  availableRegions: Array<DiningRegion>,
+  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
+}
+
+const RegionSelection = (props: Props) => {
   if (props.availableRegions.length === 0) {
     return (
       <div className="regionSelection">
