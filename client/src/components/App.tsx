@@ -35,7 +35,7 @@ class App extends React.Component<Props, State> {
       regionSelectedId: 0,
       regionSelectedName: "",
       reservationSlots: {},
-      timeSelectedId: 0,
+      timeSelectedId: -1,
       dateSelected: "",
       info: {}
     };
@@ -55,7 +55,7 @@ class App extends React.Component<Props, State> {
           search,
           regionSelectedId: data.length > 0 ? data[0].id : 0,
           regionSelectedName: data.length > 0 ? data[0].region_name : "",
-          timeSelectedId: 0,
+          timeSelectedId: -1,
           dateSelected: "",
           info: {
             guestInfo: search
@@ -77,8 +77,8 @@ class App extends React.Component<Props, State> {
 
   handleSelectSlot(date: string, timeId: number) {
     let newReservationSlots = Object.assign({}, this.state.reservationSlots);
-    if (this.state.timeSelectedId > 0) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId-1].selected = false;
-    newReservationSlots[date][timeId-1].selected = true;
+    if (this.state.timeSelectedId > 0) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId].selected = false;
+    newReservationSlots[date][timeId].selected = true;
     const info = Object.assign({}, this.state.info, {
       reservationDate: date,
       reservationTime: this.state.reservationSlots[date][timeId].time
@@ -104,7 +104,7 @@ class App extends React.Component<Props, State> {
           reservationSlots: data,
           regionSelectedId: region_id,
           regionSelectedName: region_name,
-          timeSelectedId: 0,
+          timeSelectedId: -1,
           dateSelected: "",
           info
         });
@@ -122,7 +122,7 @@ class App extends React.Component<Props, State> {
         <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>
         {this.state.matched && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
         {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots} handleSelectSlot={this.handleSelectSlot}/>}
-        {this.state.timeSelectedId > 0 && <ConfirmationPage info={this.state.info}/>}
+        {this.state.timeSelectedId > -1 && <ConfirmationPage info={this.state.info}/>}
       </div>
     );
   }

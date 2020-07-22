@@ -23,7 +23,7 @@ const ReservationSlots = (props: Props) => {
           let cName = "slot";
           if (slot.taken) cName = "takenSlot";
           if (slot.selected) cName = "selectedSlot";
-          return <div onClick={(e) => {if (!slot.taken) props.handleSelectSlot(date, timeId + 1)}} className={cName} key={date + ": " + slot.time}>{slot.time}</div>
+          return <div onClick={(e) => {if (!slot.taken) props.handleSelectSlot(date, timeId)}} className={cName} key={date + ": " + slot.time}>{slot.time}</div>
           })
         })}
       </div>
