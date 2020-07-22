@@ -18,8 +18,6 @@ app.use(express.static('./client/dist'))
 const router = require("./router");
 app.use("/api",router);
 
-app.get('/', (req, res) => res.send('Hello World!'))
-
 app.listen(process.env.PORT || 3001, () => {
   console.log(`Listening on PORT ${process.env.PORT || 3001}`);
 });

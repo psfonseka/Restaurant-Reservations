@@ -2,7 +2,11 @@ import { AxiosResponse } from '../types';
 const axios = require('axios');
 
 const matchRegions = (partySize: number, smoking: boolean, children: boolean) => {
-  return axios.get('/api/regions')
+  return axios.post('/api/regions', {
+    partySize,
+    smoking,
+    children
+  })
     .then((data: AxiosResponse) => {
       console.log(data.data);
     })

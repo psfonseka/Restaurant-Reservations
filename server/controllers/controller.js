@@ -10,6 +10,15 @@ db.any('select timeslots.time_string, sub.date from timeslots right join (select
 
 module.exports = {
   matchRegions: (req, res) => {
-    res.send("hello");
+    const smoker = (req.body.smoking) ? ' AND smoking_allowed = TRUE' : '';
+    const children = (req.body.children) ? ' AND children_allowed = TRUE' : '';
+    db.any(`SELECT id, region_name FROM regions WHERE ${req.body.partySize} <= max_size` + smoker + children)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send(err);
+      })
   }
 };

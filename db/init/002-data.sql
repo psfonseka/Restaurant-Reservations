@@ -20,7 +20,7 @@ INSERT INTO dates (date) VALUES ('07-31-2020');
 INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Main Hall', 12, TRUE, FALSE);
 INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Bar', 4, FALSE, FALSE);
 INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Riverside', 8, TRUE, FALSE);
-INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Riverise (smoking allowed)', 6, FALSE, TRUE);
+INSERT INTO regions (region_name, max_size, children_allowed, smoking_allowed) VALUES ('Riverside (smoking allowed)', 6, FALSE, TRUE);
 
 INSERT INTO reservations (region_id, reservation_time, reservation_date) VALUES (2, '9:30 PM', '07-27-2020');
 INSERT INTO reservations (region_id, reservation_time, reservation_date) VALUES (4, '9:30 PM', '07-25-2020');
