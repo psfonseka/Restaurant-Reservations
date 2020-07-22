@@ -5,6 +5,7 @@ import RegionSelection from './RegionSelection';
 import { DiningRegion, SearchEntry } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
 import matchRegions from '../helpers/matchRegions';
+import getSlots from '../helpers/getSlots';
 
 interface Props {
 
@@ -43,11 +44,19 @@ class App extends React.Component<Props, State> {
       })
       .catch((err: any) => {
         console.log(err);
-      })
+      });
   }
 
   handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    console.log(event.target.value)
+    const region_id = parseInt(event.target.value);
+    getSlots(region_id)
+      .then((data: any) => {
+        console.log(data);
+        console.log("here");
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 
   render() {

@@ -4,4 +4,6 @@ const router = expressRouter();
 
 router.post('/regions', controller.matchRegions);
 
+router.get('/regions/:id', controller.getSlots);
+
 module.exports = router;
