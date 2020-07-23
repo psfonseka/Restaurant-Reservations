@@ -11,7 +11,7 @@ import getSlots from '../helpers/getSlots';
 import matchRegions from '../helpers/matchRegions';
 
 interface Props {
-
+  socket: any
 }
 
 interface State {
