@@ -11,6 +11,15 @@ module.exports = {
       .then(() => {
         res.send("Confirmed Reservation");
       })
+      .then(() => {
+        req.io.emit('test', 'blah');
+        req.io.emit('reservation', {
+          regionId: body.regionInfo.id,
+          reservationTime: body.reservationTime,
+          reservationDate: body.reservationDate,
+          reservationTimeId: body.reservationTimeId
+        });
+      })
       .catch((err) => {
         console.log(err);
         res.status(500).send(err);

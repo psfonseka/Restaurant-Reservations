@@ -4,7 +4,7 @@ import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import RegionSelection from './RegionSelection';
 import ReservationSlots from './ReservationSlots';
-import { DiningRegion, SearchEntry, DaySlots, FullInfo, AxiosResponse, SocketHelper } from '../types';
+import { DiningRegion, SearchEntry, DaySlots, FullInfo, ReservationInfo, SocketHelper } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
 import confirmReservation from '../helpers/confirmReservation';
 import getSlots from '../helpers/getSlots';
@@ -48,22 +48,27 @@ class App extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.socketContainer.functionTest = (str: string) => {
-      console.log(str);
+    this.props.socketContainer.realTimeUpdate = (reservation: ReservationInfo) => {
+      console.log(reservation);
     };
   }
 
   confirmReservation() {
-    confirmReservation(this.state.info)
+    this.setState({
+      info: Object.assign({}, this.state.info, {confirmed: true}) //Optimistically say it's confirmed so websocket doesn't interfere
+    }, () => {
+      confirmReservation(this.state.info)
       .then((response: string) => {
         console.log(response)
-        this.setState({
-          info: Object.assign({}, this.state.info, {confirmed: true})
-        });
       })
       .catch((err: any) => {
+        this.setState({
+          info: Object.assign({}, this.state.info, {confirmed: false})
+        });
         console.log(err);
+        alert("Sorry, we could not confirm due to someone else just taking the reservation slot or a problem with the server");
       });
+    });
   }
 
   handleSubmit(search: SearchEntry) {
@@ -102,7 +107,8 @@ class App extends React.Component<Props, State> {
     newReservationSlots[date][timeId].selected = true;
     const info = Object.assign({}, this.state.info, {
       reservationDate: date,
-      reservationTime: this.state.reservationSlots[date][timeId].time
+      reservationTime: this.state.reservationSlots[date][timeId].time,
+      reservationTimeId: timeId
     });
     this.setState({
       reservationSlots: newReservationSlots,

@@ -11,6 +11,13 @@ export interface DiningRegion {
   region_name: string
 };
 
+export interface ReservationInfo {
+  regionId: number,
+  reservationTime: string,
+  reservationDate: string,
+  reservationTimeId: number
+};
+
 export interface SearchEntry {
   fullName: string,
   email: string,
@@ -25,8 +32,8 @@ export interface SearchEntry {
 
 export interface SocketHelper {
   socket: any,
-  functionTest: any
-}
+  realTimeUpdate: (reservation: ReservationInfo) => void
+};
 
 export interface TimeDaySlot {
   time_string: string,
@@ -49,5 +56,6 @@ export interface FullInfo {
   regionInfo: DiningRegion,
   reservationDate: string,
   reservationTime: string,
+  reservationTimeId: number,
   confirmed: boolean
 }
