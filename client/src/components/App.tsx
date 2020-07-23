@@ -4,14 +4,14 @@ import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import RegionSelection from './RegionSelection';
 import ReservationSlots from './ReservationSlots';
-import { DiningRegion, SearchEntry, DaySlots, FullInfo, AxiosResponse } from '../types';
+import { DiningRegion, SearchEntry, DaySlots, FullInfo, AxiosResponse, SocketHelper } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
 import confirmReservation from '../helpers/confirmReservation';
 import getSlots from '../helpers/getSlots';
 import matchRegions from '../helpers/matchRegions';
 
 interface Props {
-  socket: any
+  socketContainer: Partial<SocketHelper>
 }
 
 interface State {
@@ -45,6 +45,12 @@ class App extends React.Component<Props, State> {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSelectSlot = this.handleSelectSlot.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.socketContainer.functionTest = (str: string) => {
+      console.log(str);
+    };
   }
 
   confirmReservation() {

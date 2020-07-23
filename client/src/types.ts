@@ -23,6 +23,11 @@ export interface SearchEntry {
   birthdayName: string
 };
 
+export interface SocketHelper {
+  socket: any,
+  functionTest: any
+}
+
 export interface TimeDaySlot {
   time_string: string,
   date: string,

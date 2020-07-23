@@ -1,5 +1,12 @@
 import * as io from 'socket.io-client';
+import { SocketHelper } from '../types';
 
-const socket = io(location.origin);
+const socketHelper = <Partial<SocketHelper>>{
+  socket: io(location.origin)
+};
+const socket = socketHelper.socket;
+socket.on('test', (test: string) => {
+  socketHelper.functionTest(test);
+})
 
-export default socket;
+export default socketHelper;

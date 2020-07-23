@@ -5,4 +5,4 @@ import socket from './helpers/socket';
 import App from './components/App';
 
 const mountNode = document.getElementById("app");
-ReactDOM.render(<App socket={socket}/>, mountNode);
+ReactDOM.render(<App socketContainer={socket}/>, mountNode);

@@ -31,6 +31,7 @@ app.use("/api",router);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  io.emit('test', 'blah');
   socket.on('disconnect', function(){
       console.log('user disconnected');
     });
