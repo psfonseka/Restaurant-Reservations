@@ -26,15 +26,6 @@ CREATE TABLE reservations (
   region_id INT NOT NULL,
   reservation_time TIME NOT NULL,
   reservation_date DATE NOT NULL,
-  CONSTRAINT fk_reservation_region FOREIGN KEY (region_id) REFERENCES regions(id),
-  CONSTRAINT fk_reservation_time FOREIGN KEY (reservation_time) REFERENCES timeslots(timeslot),
-  CONSTRAINT fk_reservation_date FOREIGN KEY (reservation_date) REFERENCES dates(date),
-  UNIQUE (region_id, reservation_time, reservation_date)
-);
-
-CREATE TABLE confirmations (
-  id SERIAL PRIMARY KEY,
-  reservation_id INT NOT NULL,
   full_name TEXT NOT NULL,
   email TEXT NOT NULL,
   phone_number TEXT NOT NULL,
@@ -44,5 +35,8 @@ CREATE TABLE confirmations (
   children BOOLEAN NOT NULL,
   number_of_children INT,
   smoking BOOLEAN NOT NULL,
-  CONSTRAINT fk_confirmation_reservation FOREIGN KEY (reservation_id) REFERENCES reservations(id)
+  CONSTRAINT fk_reservation_region FOREIGN KEY (region_id) REFERENCES regions(id),
+  CONSTRAINT fk_reservation_time FOREIGN KEY (reservation_time) REFERENCES timeslots(timeslot),
+  CONSTRAINT fk_reservation_date FOREIGN KEY (reservation_date) REFERENCES dates(date),
+  UNIQUE (region_id, reservation_time, reservation_date)
 );

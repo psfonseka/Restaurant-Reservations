@@ -6,14 +6,9 @@ module.exports = {
     const guest = body.guestInfo;
     const birthday = guest.hasBirthday ? [`birthday, birthday_name`, `TRUE, '${guest.birthdayName}'`] : [`birthday`, `FALSE`];
     const children = guest.hasChildren ? [`children, number_of_children`,`TRUE, ${guest.childrenNumber}`] : [`children`, `FALSE`];
-    db.any(`INSERT INTO reservations (region_id, reservation_time, reservation_date) 
-      VALUES (${body.regionInfo.id}, '${body.reservationTime}', '${body.reservationDate}') RETURNING id;`)
-      .then((reservation_id) => {
-        const id = reservation_id[0].id;
-        return db.any(`INSERT INTO confirmations (reservation_id, full_name, email, phone_number, party_size, ${birthday[0]}, ${children[0]}, smoking) 
-          VALUES (${id}, '${guest.fullName}', '${guest.email}', '${guest.phoneNumber}', ${guest.partySize}, ${birthday[1]}, ${children[1]}, ${guest.hasSmoker});`)
-      })
-      .then((data) => {
+    db.any(`INSERT INTO reservations (region_id, reservation_time, reservation_date, full_name, email, phone_number, party_size, ${birthday[0]}, ${children[0]}, smoking) 
+      VALUES (${body.regionInfo.id}, '${body.reservationTime}', '${body.reservationDate}', '${guest.fullName}', '${guest.email}', '${guest.phoneNumber}', ${guest.partySize}, ${birthday[1]}, ${children[1]}, ${guest.hasSmoker});`)      
+      .then(() => {
         res.send("Confirmed Reservation");
       })
       .catch((err) => {
