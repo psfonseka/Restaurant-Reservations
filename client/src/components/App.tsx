@@ -41,6 +41,7 @@ class App extends React.Component<Props, State> {
       info: {}
     };
 
+    this.checkReservation = this.checkReservation.bind(this);
     this.confirmReservation = this.confirmReservation.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSelectSlot = this.handleSelectSlot.bind(this);
@@ -49,8 +50,36 @@ class App extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.socketContainer.realTimeUpdate = (reservation: ReservationInfo) => {
-      console.log(reservation);
+      this.checkReservation(reservation);
     };
+  }
+
+  checkReservation(reservation: ReservationInfo) {
+    if (this.state.info.confirmed || !this.state.matched || this.state.regionSelectedId !== reservation.regionId) return;
+    const newReservationDay = Object.assign({}, this.state.reservationSlots[reservation.reservationDate]);
+    newReservationDay[reservation.reservationTimeId].taken = true;
+    const newReservationSlots = Object.assign({}, this.state.reservationSlots);
+    //Necessary for turning newReservationDay into an array
+    newReservationSlots[reservation.reservationDate] = Object.keys(newReservationDay).map((idx: any) => {
+      return {
+        time: newReservationDay[idx].time,
+        taken: newReservationDay[idx].taken,
+        selected: newReservationDay[idx].selected
+      }
+    });
+    if (this.state.dateSelected === reservation.reservationDate && this.state.timeSelectedId === reservation.reservationTimeId) {
+      alert("Sorry, someone has just taken your reservation slot!");
+      newReservationSlots[reservation.reservationDate][reservation.reservationTimeId].selected = false;
+      this.setState({
+        reservationSlots: newReservationSlots,
+        timeSelectedId: -1,
+        dateSelected: "",
+      });
+    } else {
+      this.setState({
+        reservationSlots: newReservationSlots
+      });
+    }
   }
 
   confirmReservation() {
@@ -72,7 +101,6 @@ class App extends React.Component<Props, State> {
   }
 
   handleSubmit(search: SearchEntry) {
-    console.log(search);
     matchRegions(search.partySize, search.hasSmoker, search.hasChildren)
       .then((data: Array<DiningRegion>) => {
         this.setState({

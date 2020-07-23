@@ -7,7 +7,6 @@ interface Props {
 }
 
 const ConfirmationPage = (props: Props) => {
-  console.log(props.info);
   return (
     <div className="confirmationPage">
       {props.info.confirmed && 
