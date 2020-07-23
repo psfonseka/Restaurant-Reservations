@@ -48,7 +48,6 @@ class App extends React.Component<Props, State> {
   }
 
   confirmReservation() {
-    console.log("Confirmation");
     confirmReservation(this.state.info)
       .then((response: string) => {
         console.log(response)
