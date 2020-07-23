@@ -18,7 +18,7 @@ const getSlots = (region_id: number) => {
     .catch((err: AxiosResponse) => {
       console.log(err);
       return err;
-    })
+    });
 };
 
 export default getSlots;

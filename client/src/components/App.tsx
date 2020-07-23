@@ -4,10 +4,11 @@ import GeneralInfo from './GeneralInfo';
 import GuestInfo from './GuestInfo';
 import RegionSelection from './RegionSelection';
 import ReservationSlots from './ReservationSlots';
-import { DiningRegion, SearchEntry, DaySlots, FullInfo } from '../types';
+import { DiningRegion, SearchEntry, DaySlots, FullInfo, AxiosResponse } from '../types';
 import SimpleReactValidator from 'simple-react-validator';
-import matchRegions from '../helpers/matchRegions';
+import confirmReservation from '../helpers/confirmReservation';
 import getSlots from '../helpers/getSlots';
+import matchRegions from '../helpers/matchRegions';
 
 interface Props {
 
@@ -48,9 +49,16 @@ class App extends React.Component<Props, State> {
 
   confirmReservation() {
     console.log("Confirmation");
-    this.setState({
-      info: Object.assign({}, this.state.info, {confirmed: true})
-    });
+    confirmReservation(this.state.info)
+      .then((response: string) => {
+        console.log(response)
+        this.setState({
+          info: Object.assign({}, this.state.info, {confirmed: true})
+        });
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }
 
   handleSubmit(search: SearchEntry) {

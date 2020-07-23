@@ -13,7 +13,7 @@ const matchRegions = (partySize: number, smoking: boolean, children: boolean) =>
     .catch((err: AxiosResponse) => {
       console.log(err);
       return err;
-    })
+    });
 };
 
 export default matchRegions;

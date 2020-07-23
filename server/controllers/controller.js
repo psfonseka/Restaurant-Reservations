@@ -1,6 +1,10 @@
 const db = require('../../db/db');
 
 module.exports = {
+  confirmReservation: (req, res) => {
+    console.log(req.body);
+    res.send("confirmed");
+  },
   matchRegions: (req, res) => {
     const smoker = (req.body.smoking) ? ' AND smoking_allowed = TRUE' : '';
     const children = (req.body.children) ? ' AND children_allowed = TRUE' : '';

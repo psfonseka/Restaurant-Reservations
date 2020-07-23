@@ -6,4 +6,6 @@ router.post('/regions', controller.matchRegions);
 
 router.get('/regions/:id', controller.getSlots);
 
+router.post('/reservations', controller.confirmReservation);
+
 module.exports = router;
