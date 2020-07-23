@@ -43,5 +43,6 @@ export interface FullInfo {
   guestInfo: SearchEntry,
   regionInfo: DiningRegion,
   reservationDate: string,
-  reservationTime: string
+  reservationTime: string,
+  confirmed: boolean
 }

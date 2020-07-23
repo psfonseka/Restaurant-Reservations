@@ -40,9 +40,17 @@ class App extends React.Component<Props, State> {
       info: {}
     };
 
+    this.confirmReservation = this.confirmReservation.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSelectSlot = this.handleSelectSlot.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  confirmReservation() {
+    console.log("Confirmation");
+    this.setState({
+      info: Object.assign({}, this.state.info, {confirmed: true})
+    });
   }
 
   handleSubmit(search: SearchEntry) {
@@ -115,14 +123,13 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="app">
         <GeneralInfo/>
-        <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>
-        {this.state.matched && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
-        {this.state.regionSelectedId > 0 && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots} handleSelectSlot={this.handleSelectSlot}/>}
-        {this.state.timeSelectedId > -1 && <ConfirmationPage info={this.state.info}/>}
+        {!this.state.info.confirmed && <GuestInfo validator={new SimpleReactValidator} handleSubmit={this.handleSubmit}/>}
+        {this.state.matched && !this.state.info.confirmed && <RegionSelection availableRegions={this.state.availableRegions} handleSelectChange={this.handleSelectChange}/>}
+        {this.state.regionSelectedId > 0 && !this.state.info.confirmed && <ReservationSlots regionId={this.state.regionSelectedId} regionName={this.state.regionSelectedName} reservationSlots={this.state.reservationSlots} handleSelectSlot={this.handleSelectSlot}/>}
+        {this.state.timeSelectedId > -1 && <ConfirmationPage info={this.state.info} confirmReservation={this.confirmReservation}/>}
       </div>
     );
   }

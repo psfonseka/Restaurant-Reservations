@@ -2,13 +2,16 @@ import * as React from 'react';
 import { FullInfo } from '../types';
 
 interface Props {
-  info: Partial<FullInfo>
+  info: Partial<FullInfo>,
+  confirmReservation: () => void;
 }
 
 const ConfirmationPage = (props: Props) => {
   console.log(props.info);
   return (
     <div className="confirmationPage">
+      {props.info.confirmed && 
+      <h3>Thank you! You can view your reservation below:</h3>}
       <h2>Confirmation</h2>
       <div>Reservation Time: {props.info.reservationTime}</div>
       <div>Reservation Date: {props.info.reservationDate}</div>
@@ -21,6 +24,8 @@ const ConfirmationPage = (props: Props) => {
       <div>Number of Children: {props.info.guestInfo.childrenNumber}</div>}
       {props.info.guestInfo?.hasBirthday && 
       <div>Birthday Name: {props.info.guestInfo.birthdayName}</div>}
+      {!props.info.confirmed && 
+      <button onClick={props.confirmReservation}>Confirm Reservation</button>}
     </div>
   )
 };
