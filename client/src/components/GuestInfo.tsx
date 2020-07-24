@@ -43,7 +43,10 @@ class GuestInfo extends React.Component<Props, State> {
   render() {
     return (
       <div className="guestInfo">
-        Please Fill in the following information to find available reservations slots:
+        <h3>
+         Please Fill in the following information to find available reservations slots:
+        </h3>
+        <br/>
         <form onSubmit={(e)=>{
           e.preventDefault();
           if (this.props.validator.allValid()) {
@@ -60,6 +63,7 @@ class GuestInfo extends React.Component<Props, State> {
               type="string"
               value={this.state.searchEntry.fullName}
               onChange={this.handleInputChange}/>
+          {this.props.validator.message('name', this.state.searchEntry.email, 'required|name', { className: 'text-danger' })}
           </label>
           <br />
           <label>
@@ -69,8 +73,8 @@ class GuestInfo extends React.Component<Props, State> {
               type="string"
               value={this.state.searchEntry.email}
               onChange={this.handleInputChange}/>
-          </label>
           {this.props.validator.message('email', this.state.searchEntry.email, 'required|email', { className: 'text-danger' })}
+          </label>
           <br />
           <label>
             Phone Number:
@@ -79,8 +83,8 @@ class GuestInfo extends React.Component<Props, State> {
               type="string"
               value={this.state.searchEntry.phoneNumber}
               onChange={this.handleInputChange}/>
-          </label>
           {this.props.validator.message('phone number', this.state.searchEntry.phoneNumber, 'required|phone', { className: 'text-danger' })}
+          </label>
           <br />
           <label>
             Number of guests:
@@ -89,8 +93,8 @@ class GuestInfo extends React.Component<Props, State> {
               type="number"
               value={this.state.searchEntry.partySize}
               onChange={this.handleInputChange}/>
-          </label>
           {this.props.validator.message('number of guests', this.state.searchEntry.partySize, 'between:1,12,num', { className: 'text-danger' })}
+          </label>
           <br />
           <label>
             Will there be any children?:
@@ -141,7 +145,7 @@ class GuestInfo extends React.Component<Props, State> {
               onChange={this.handleInputChange}/>
           </label>
           <br/>
-          <input type="submit" value="SEARCH" />
+          <input className="button" type="submit" value="SEARCH" />
         </form>
       </div>
 
