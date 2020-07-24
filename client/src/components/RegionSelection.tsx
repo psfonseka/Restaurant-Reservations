@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DiningRegion } from '../types';
 
-interface Props {
+export interface Props {
   availableRegions: Array<DiningRegion>,
   handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
@@ -19,9 +19,9 @@ const RegionSelection = (props: Props) => {
       <div className="regionSelection">
         <br/>
         Please select an available region to dine at:
-        <select onChange={props.handleSelectChange}>
+        <select data-testid="region-selection" onChange={props.handleSelectChange}>
           {props.availableRegions.map((region) => {
-          return <option key={region.id} value={region.id}>{region.region_name}</option>
+          return <option data-testid={region.id} key={region.id} value={region.id}>{region.region_name}</option>
           })}
         </select>
       </div>

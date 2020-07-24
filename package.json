@@ -13,7 +13,9 @@
     "start": "node server/index.js",
     "start:dev": "nodemon server/index.js",
     "db-start:dev": "docker-compose up --build -d",
-    "test": "jest"
+    "test-jsdom": "jest --env=jsdom RegionSelection",
+    "test-node": "jest --env=node Helpers",
+    "test": "npm run test-jsdom && npm run test-node"
   },
   "dependencies": {
     "@testing-library/dom": "^7.21.4",

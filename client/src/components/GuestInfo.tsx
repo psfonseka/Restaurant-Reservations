@@ -43,7 +43,7 @@ class GuestInfo extends React.Component<Props, State> {
   render() {
     return (
       <div className="guestInfo">
-        <h3>
+        <h3 className="centerText">
          Please Fill in the following information to find available reservations slots:
         </h3>
         <br/>
