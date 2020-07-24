@@ -10,7 +10,8 @@
         "target": "es5",
         "allowJs": true,
         "jsx": "react",
-        "lib": ["esnext", "dom"]
+        "lib": ["esnext", "dom"],
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "client/src/**/*"

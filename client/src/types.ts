@@ -30,8 +30,8 @@ export interface SearchEntry {
   birthdayName: string
 };
 
-export interface SocketHelper {
-  socket: any,
+export interface SocketHelper<T = any> {
+  socket: T,
   realTimeUpdate: (reservation: ReservationInfo) => void
 };
 
