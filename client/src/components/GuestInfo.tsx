@@ -48,12 +48,9 @@ class GuestInfo extends React.Component<Props, State> {
           e.preventDefault();
           if (this.props.validator.allValid()) {
             this.props.handleSubmit(this.state.searchEntry);
-            //alert('You submitted the form and stuff!');
           } else {
             this.props.validator.showMessages();
-            // rerender to show messages for the first time
-            // you can use the autoForceUpdate option to do this automatically`
-            this.forceUpdate();
+            this.forceUpdate(); //Rerender to show messages for the first time
           }
         }}>
           <label>

@@ -6,8 +6,9 @@ const getSlots = (region_id: number) => {
     .then((data: AxiosResponse) => {
       const fullData: Array<TimeDaySlot> = data.data;
       const processedData: DaySlots = {};
-      fullData.forEach((slot) => {
-        const date = slot.date.substring(0,10);
+      //Convert an array of {date, time, taken} to hashmap of dates: [{time, taken}] for an easy to use format on the frontend
+      fullData.forEach((slot) => { 
+        const date = slot.date.substring(0,10); //Convert date/timestamp to just the date
         const time = slot.time_string;
         const taken = slot.taken;
         if (!processedData[date]) processedData[date] = [];

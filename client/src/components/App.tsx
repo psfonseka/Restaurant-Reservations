@@ -41,11 +41,11 @@ class App extends React.Component<Props, State> {
       info: {}
     };
 
-    this.checkReservation = this.checkReservation.bind(this);
+    this.checkReservation = this.checkReservation.bind(this); //Runs whenever the API websocket sends info about a completed reservation by another user
     this.confirmReservation = this.confirmReservation.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this); //For region selection, makes an API request to get reservation slots for that region
     this.handleSelectSlot = this.handleSelectSlot.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this); //For the original search that sends an API request to find what dining regions the user is eligible for
   }
 
   componentDidMount() {
@@ -56,6 +56,8 @@ class App extends React.Component<Props, State> {
 
   checkReservation(reservation: ReservationInfo) {
     if (this.state.info.confirmed || !this.state.matched || this.state.regionSelectedId !== reservation.regionId) return;
+    //Could have done it in a much cleaner way by just having it make another API request for new reservation slots,
+    //But decided to do it this way in just giving the work to front-end based on what slot was confirmed to be taken
     const newReservationDay = Object.assign({}, this.state.reservationSlots[reservation.reservationDate]);
     newReservationDay[reservation.reservationTimeId].taken = true;
     const newReservationSlots = Object.assign({}, this.state.reservationSlots);
@@ -115,6 +117,7 @@ class App extends React.Component<Props, State> {
             guestInfo: search
           }
         }, () => {
+          //Immediately calls the API request for slots for the first eligible dining region
           if (this.state.regionSelectedId > 0) this.updateSlots(this.state.regionSelectedId, this.state.regionSelectedName);
         });
       })
@@ -131,6 +134,7 @@ class App extends React.Component<Props, State> {
 
   handleSelectSlot(date: string, timeId: number) {
     let newReservationSlots = Object.assign({}, this.state.reservationSlots);
+    //Check if there is an already selected slot then unselect it 
     if (this.state.timeSelectedId > -1) newReservationSlots[this.state.dateSelected][this.state.timeSelectedId].selected = false;
     newReservationSlots[date][timeId].selected = true;
     const info = Object.assign({}, this.state.info, {
