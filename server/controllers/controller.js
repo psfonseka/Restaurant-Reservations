@@ -1,7 +1,7 @@
 const db = require('../../db/db');
 
 module.exports = {
-  confirmReservation: (req, res) => {
+  confirmReservation: (req, res) => { //Adds reservation to DB and once successful, emits reservation data to all users
     const body = req.body
     const guest = body.guestInfo;
     const birthday = guest.hasBirthday ? [`birthday, birthday_name`, `TRUE, '${guest.birthdayName}'`] : [`birthday`, `FALSE`];
@@ -12,7 +12,6 @@ module.exports = {
         res.send("Confirmed Reservation");
       })
       .then(() => {
-        req.io.emit('test', 'blah');
         req.io.emit('reservation', {
           regionId: body.regionInfo.id,
           reservationTime: body.reservationTime,
@@ -25,7 +24,7 @@ module.exports = {
         res.status(500).send(err);
       })
   },
-  matchRegions: (req, res) => {
+  matchRegions: (req, res) => { //Checks user info with region info on DB to find what dining regions the user is eligible for 
     const smoker = (req.body.smoking) ? ' AND smoking_allowed = TRUE' : '';
     const children = (req.body.children) ? ' AND children_allowed = TRUE' : '';
     db.any(`SELECT id, region_name FROM regions WHERE ${req.body.partySize} <= max_size` + smoker + children)
@@ -37,7 +36,7 @@ module.exports = {
         res.status(500).send(err);
       })
   },
-  getSlots: (req, res) => {
+  getSlots: (req, res) => { //Gets the reservations slots for a region and adds info about whether there is already existing reservation for the slot
     const id = req.params.id;
     db.any(`SELECT timeslots.time_string, dates.date, 
       CASE WHEN reservations.reservation_time = timeslots.timeslot 
