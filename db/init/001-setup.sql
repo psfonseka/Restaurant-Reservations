@@ -1,8 +1,6 @@
--- Spent probably too much time thinking about what might be an optimal schema
--- Considered creating reservation bookings beforehand for every timestamp and region combination
--- That would be so time availability could be looked up more efficiently with indexing, 
--- But that might be overkill, especially since I don't know how much it would improve queries anyway
--- We'll stick with Finding availabilities based on what time/region combinations are not booked
+-- After some planning about what I wanted for the user experience along with changes through steps of 
+-- creating the application, I figured that this was a pretty good schema for setting up the reservation 
+-- app in the style of a movie seat reservation app
 
 CREATE TABLE timeslots (
   timeslot TIME PRIMARY KEY,
