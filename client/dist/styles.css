@@ -36,7 +36,17 @@ form {
 
 .confirmationPage {
   margin: auto;
+  border-style: solid;
   width: 40%;
+  vertical-align: middle;
+  border-width: thick;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmationInfo {
+  margin: auto
 }
 
 .dates {
@@ -67,6 +77,7 @@ form {
 .reservationSlots {
   margin: auto;
   width: 70%;
+  padding: 20px 0px 20px 0px
 }
 
 .selectedSlot {
